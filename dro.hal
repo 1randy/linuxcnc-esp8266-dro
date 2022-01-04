@@ -1,0 +1,28 @@
+loadrt classicladder_rt
+loadrt mult2 count=3
+
+addf classicladder.0.refresh servo-thread
+addf mult2.0 servo-thread
+addf mult2.1 servo-thread
+addf mult2.2 servo-thread
+
+#loadusr -w classicladder --modmaster --nogui dro.clp
+loadusr classicladder --modmaster dro.clp
+
+# floatin-00 -> xi0 in dro.clp
+# floatin-01 -> xi1 in dro.clp
+setp mult2.0.in1 1000
+net dro-xi0	halui.axis.x.pos-relative	=>	classicladder.0.floatin-00	mult2.0.in0
+net dro-xi1	mult2.0.out			=>	classicladder.0.floatin-01
+
+# floatin-02 -> yi0 in dro.clp
+# floatin-03 -> yi1 in dro.clp
+setp mult2.1.in1 1000
+net dro-yi0	halui.axis.x.pos-relative	=>	classicladder.0.floatin-02	mult2.1.in0
+net dro-yi1	mult2.1.out			=>	classicladder.0.floatin-03
+
+# floatin-04 -> zi0 in dro.clp
+# floatin-05 -> zi1 in dro.clp
+setp mult2.2.in1 1000
+net dro-zi0	halui.axis.x.pos-relative	=>	classicladder.0.floatin-04	mult2.2.in0
+net dro-zi1	mult2.2.out			=>	classicladder.0.floatin-05
